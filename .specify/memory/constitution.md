@@ -1,55 +1,57 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- SYNC IMPACT REPORT
+Version change: N/A → 1.0.0 (initial creation)
+Modified principles: N/A (new principles created)
+Added sections: Core Principles (6), Additional Constraints, Development Workflow, Governance
+Removed sections: N/A
+Templates requiring updates:
+  - .specify/templates/plan-template.md ✅ updated
+  - .specify/templates/spec-template.md ✅ updated
+  - .specify/templates/tasks-template.md ✅ updated
+  - .specify/templates/commands/sp.constitution.md ✅ updated
+Follow-up TODOs: None
+-->
+
+# AI-Native Driven Development Book Website Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Zero-Dependency UI Design
+No external UI libraries except shadcn/ui and Tailwind CSS. All components must be built with these foundational tools to maintain lightweight, consistent design and reduce bundle size overhead.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Mobile-First Glassmorphism Design
+Design mobile-first with glassmorphism and gradient aesthetics. All components must be responsive from mobile devices upward, with glass-like transparency effects and gradient color schemes implemented through Tailwind classes.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### MDX Content Management
+All book content must be authored in MDX format for easy future updates. Chapter content lives in /content/chapters/ directory, allowing seamless integration of React components within markdown content for enhanced interactivity.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Performance Optimization
+Achieve lightning-fast load times with First Contentful Paint under 1.5 seconds. Total bundle size must remain under 150KB (excluding images) through code splitting, lazy loading, and aggressive optimization techniques.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Accessibility Compliance
+Maintain 100% accessibility with proper ARIA attributes and comprehensive keyboard navigation support. All components must meet WCAG 2.1 AA standards with semantic HTML structure and proper focus management.
 
-### [PRINCIPLE_6_NAME]
+### Dark/Light Mode Toggle
+Implement system-aware dark/light mode switching with smooth transitions. User preference must be remembered across sessions using localStorage or system preference detection.
 
+## Additional Constraints
 
-[PRINCIPLE__DESCRIPTION]
+Technology Stack: Next.js 15, TypeScript strict mode, Tailwind CSS, shadcn/ui
+Deployment: Vercel (free tier)
+Pages: Limited to 4 pages only (Home, Book, About, Contact)
+Content Structure: Book consists of 5 chapters with 2 topics each
+Component Reusability: All components must be designed for reuse across the site
+Bundle Size: Total JavaScript/CSS bundle must remain under 150KB without images
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Development Workflow
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Code Quality: All code must pass TypeScript strict mode compilation
+Testing: Components must include appropriate unit and integration tests
+Review Process: All PRs require adherence to constitution principles
+Documentation: Component props and functionality must be documented with JSDoc
+Version Control: Follow conventional commits with descriptive messages
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution governs all development decisions for the AI-Native Driven Development book website. All code reviews must verify compliance with these principles. Amendments require documentation of rationale and approval from project stakeholders. New features must align with the four-page constraint and performance requirements.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-02-20 | **Last Amended**: 2026-02-20

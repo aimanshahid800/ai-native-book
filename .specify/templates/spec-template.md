@@ -84,16 +84,22 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST use only shadcn/ui and Tailwind CSS for UI components (Zero-Dependency UI Design)
+- **FR-002**: System MUST implement mobile-first responsive design with glassmorphism and gradient effects (Mobile-First Glassmorphism Design)
+- **FR-003**: System MUST render all book content using MDX format from /content/chapters/ directory (MDX Content Management)
+- **FR-004**: System MUST achieve First Contentful Paint under 1.5 seconds (Performance Optimization)
+- **FR-005**: System MUST maintain total bundle size under 150KB (without images) (Performance Optimization)
+- **FR-006**: System MUST provide full ARIA compliance and keyboard navigation support (Accessibility Compliance)
+- **FR-007**: System MUST offer dark/light mode toggle with system preference detection (Dark/Light Mode Toggle)
+- **FR-008**: System MUST implement Next.js 15 with TypeScript strict mode (Technology Stack Requirement)
+- **FR-009**: System MUST be limited to 4 pages: Home, Book, About, Contact (Page Limit Constraint)
+- **FR-010**: System MUST structure book content as 5 chapters with 2 topics each (Content Structure)
+- **FR-011**: System MUST deploy on Vercel free tier (Deployment Constraint)
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-012**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+- **FR-013**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
 ### Key Entities *(include if feature involves data)*
 
