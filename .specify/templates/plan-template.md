@@ -31,17 +31,7 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-### Required Checks:
-- **Zero-Dependency UI Design**: Verify no external UI libraries used except shadcn/ui and Tailwind CSS
-- **Mobile-First Glassmorphism Design**: Confirm mobile-first approach with glassmorphism/gradients implemented via Tailwind
-- **MDX Content Management**: Ensure all book content uses MDX format in /content/chapters/ directory
-- **Performance Optimization**: Verify FCP <1.5s and total bundle size <150KB (without images)
-- **Accessibility Compliance**: Confirm ARIA attributes and keyboard navigation support meet WCAG 2.1 AA standards
-- **Dark/Light Mode Toggle**: Implement system-aware theme switching with preference persistence
-- **Technology Stack Alignment**: Confirm Next.js 15, TypeScript strict mode, Tailwind, shadcn/ui usage
-- **Page Limit Constraint**: Verify only 4 pages (Home, Book, About, Contact)
-- **Content Structure**: Ensure book has 5 chapters with 2 topics each
-- **Component Reusability**: All components designed for reuse across site
+[Gates determined based on constitution file]
 
 ## Project Structure
 

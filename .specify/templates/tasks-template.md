@@ -48,11 +48,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per implementation plan with Next.js 15 and TypeScript
-- [ ] T002 Initialize project with Tailwind CSS and shadcn/ui dependencies
-- [ ] T003 [P] Configure TypeScript strict mode and ESLint with accessibility rules
-- [ ] T004 [P] Set up MDX configuration for content in /content/chapters/ directory
-- [ ] T005 Configure performance monitoring tools to track bundle size <150KB
+- [ ] T001 Create project structure per implementation plan
+- [ ] T002 Initialize [language] project with [framework] dependencies
+- [ ] T003 [P] Configure linting and formatting tools
 
 ---
 
@@ -64,13 +62,12 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T006 [P] Implement responsive layout system with mobile-first approach
-- [ ] T007 [P] Setup glassmorphism and gradient styling components with Tailwind
-- [ ] T008 Create dark/light mode toggle with system preference detection
-- [ ] T009 [P] Configure accessibility with ARIA attributes and keyboard navigation
-- [ ] T010 Setup MDX content rendering system for book chapters
-- [ ] T011 Configure performance optimization tools and bundle analyzer
-- [ ] T012 Create reusable component architecture following constitution principles
+- [ ] T004 Setup database schema and migrations framework
+- [ ] T005 [P] Implement authentication/authorization framework
+- [ ] T006 [P] Setup API routing and middleware structure
+- [ ] T007 Create base models/entities that all stories depend on
+- [ ] T008 Configure error handling and logging infrastructure
+- [ ] T009 Setup environment configuration management
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
