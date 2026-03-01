@@ -1,13 +1,105 @@
 ---
 title: "Chapter 4: Scaling AI Systems"
 order: 4
-description: "Performance, reliability, and cost management in AI-native architecture."
+description: "Token Economics, cost strategies, latency engineering, and reliability patterns for production AI apps."
 ---
 
 # Chapter 4: Scaling AI Systems
 
-## Topic 4.1: Managing Token Budgets
-Optimizing performance and cost through efficient prompt engineering and token management.
+Building an AI application is relatively easy, but **scaling** it — running it for thousands or millions of users — is incredibly difficult. While scaling a traditional app usually involves just increasing server power, scaling an AI-native app requires a deep understanding of **Token Economics** and **Latency Engineering**. In this chapter, we will discuss these challenges and their solutions.
 
-## Topic 4.2: Guardrails and Reliability
-Ensuring deterministic outcomes and safety in probabilistic AI systems.
+---
+
+## Topic 1: The Economics of AI (Cost Management)
+
+The biggest "shock" in AI-native development usually arrives at the end of the month when the API bill appears. Every time a user interacts with your app, you are essentially paying providers like OpenAI or Google for their computational power.
+
+### 4.1 Token Economics
+
+AI models operate on **Tokens** (roughly 1,000 words ≈ 750 tokens). Understanding how these are billed is crucial for survival.
+
+- **Input vs. Output Cost:** Providing context (Input) is generally cheaper than generating a response (Output).
+- **The Cost Trap:** If you use RAG and send massive files as context for every small question, your costs will skyrocket unnecessarily. **Efficiency in what you send to the model is key.**
+
+### 4.2 Strategies to Reduce Costs
+
+**Semantic Caching:** If one user asks "What is AI?" and another asks the same thing later, you shouldn't call the AI again. By using a "Cache," you can store the first response and show it to the second user. This can reduce costs by **up to 80%**.
+
+**Model Cascading:** Not every task requires a powerhouse like GPT-4. You should route simple tasks to cheaper, faster models (like GPT-4o-mini or Llama 3 8B) and save the expensive models only for complex reasoning.
+
+<CodePlayground
+  title="Model Cascading — Route by Task Complexity"
+  language="typescript"
+  code={`async function routeTask(task: string, complexity: "low" | "high") {
+  if (complexity === "low") {
+    // Cheap, fast model for simple tasks
+    return await callModel("gpt-4o-mini", task);
+  } else {
+    // Powerful model reserved for complex reasoning
+    return await callModel("gpt-4o", task);
+  }
+}
+
+// Example usage
+const summary = await routeTask("Summarize this paragraph.", "low");
+const analysis = await routeTask("Audit this contract for legal risks.", "high");`}
+/>
+
+---
+
+## Topic 2: Performance, Latency, and Reliability
+
+Users hate waiting. If your app takes 30 seconds to generate a response, the user will likely abandon it. **Reliability and speed** are the pillars of a professional AI system.
+
+### 2.1 Tackling Latency (Streaming Responses)
+
+Large AI models take time to process a full thought. The solution is **Streaming** — as seen in ChatGPT, the response appears word-by-word.
+
+This reduces **Perceived Latency**. Even if the full answer takes 10 seconds, the user sees progress immediately, which keeps them engaged.
+
+> In technical terms, we optimize **Time to First Token (TTFT)**. Ideally, the first word should appear on the screen in **under 1 second**.
+
+### 2.2 Rate Limits and Failovers
+
+Major AI providers enforce **Rate Limits** (e.g., 3,500 requests per minute). If your app goes viral, you might get blocked for exceeding these limits.
+
+- **Redundancy:** Don't rely on a single provider. Your architecture should include a **Failover** system — if OpenAI is down or rate-limited, automatically switch to Google Gemini or Anthropic Claude.
+- **Queue Management:** During high-traffic spikes, use request queues to process tasks in an orderly fashion and prevent the entire system from crashing.
+
+<CodePlayground
+  title="Streaming Response — Time to First Token"
+  language="typescript"
+  code={`import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+
+// Stream the response word-by-word
+const stream = client.messages.stream({
+  model: "claude-3-5-sonnet-20241022",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Explain token economics." }]
+});
+
+// First token appears almost instantly — great perceived latency
+for await (const chunk of stream) {
+  if (chunk.type === "content_block_delta") {
+    process.stdout.write(chunk.delta.text);
+  }
+}`}
+/>
+
+---
+
+## Quiz: Test Your Understanding
+
+<Quiz
+  question="What is the purpose of 'Model Cascading' in an AI-native application?"
+  options={[
+    "To run multiple AI models simultaneously for better accuracy.",
+    "To route simple tasks to cheaper/faster models and reserve powerful models for complex reasoning.",
+    "To train a new model by combining outputs of smaller models.",
+    "To cache model responses for reuse."
+  ]}
+  correctIndex={1}
+  explanation="Model Cascading is a cost-optimization strategy. Not every query needs GPT-4's power. Routing simple tasks to lightweight models (like GPT-4o-mini) dramatically reduces costs while keeping quality high for complex tasks."
+/>

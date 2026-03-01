@@ -100,8 +100,23 @@
 
 ---
 
+## Phase 7: AI-Native Enhancement (Sleek & Interactive)
+
+**Purpose**: Elevate the site to a premium, interactive, and visually engaging educational platform.
+
+- [ ] **T040 [P]** Implement sleek glassmorphism UI and refined dark mode in `src/app/globals.css`
+- [ ] **T041** Create `InteractiveMDX` components (Quiz, Diagram, CodePlayground) in `src/components/mdx/`
+- [ ] **T042** Update `src/lib/mdx.ts` and `src/app/book/page.tsx` to support advanced interactive components
+- [ ] **T043** Populate all 5 chapters with rich, real-world AI-Native educational content
+- [ ] **T044 [P]** Add Framer Motion animations (fade-ins, staggered lists, transitions) to all pages
+- [ ] **T045** Implement collapsible sidebar and search functionality in the book page
+- [ ] **T046** Add chapter quizzes and interactive exercises to the end of each MDX file
+
+---
+
 ## 🏗️ Execution Strategy
 
 1.  **Phase 1 & 2 First**: These are blocking. Do not start US1 until T012 is done.
 2.  **Parallel Work**: Tasks marked **[P]** can be done simultaneously by different people or in different tabs.
 3.  **MVP Focus**: Complete Phase 3 (US1) to have a "Minimum Viable Product" ready for demo.
+4.  **Enhancement**: Phase 7 focuses on the "AI-Native" experience with high-end UI/UX and interactivity.

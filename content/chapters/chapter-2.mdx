@@ -1,13 +1,108 @@
 ---
 title: "Chapter 2: Architecting for Intelligence"
 order: 2
-description: "Design patterns and architectural principles for AI-driven applications."
+description: "The AI-Native tech stack, three-layer architecture, Vector Databases, and RAG explained."
 ---
 
 # Chapter 2: Architecting for Intelligence
 
-## Topic 2.1: The Agentic Workflow
-Moving beyond simple prompt-response cycles to autonomous, multi-step agentic workflows.
+In the traditional era of software development, our primary focus was on the **Database** and the **Server**. However, building an AI-Native app is like fitting a "Living Brain" into your software. In this chapter, we will learn how to make AI a core part of your system so it can function intelligently and purposefully.
 
-## Topic 2.2: RAG and Context Injection
-Retrieval Augmented Generation as the bridge between static models and dynamic enterprise data.
+---
+
+## Topic 1: The AI-Native Tech Stack
+
+Standard software stacks usually consist of a Frontend and a Backend. An AI-Native stack, however, introduces several critical new layers that manage the system's **reasoning** capabilities.
+
+### 1.1 The Three-Layer Architecture
+
+AI-Native applications are generally divided into three major components:
+
+**The Application Layer (Interface):** This is where the user interacts. It is more than just buttons — it involves **Intent Recognition**. The app must first understand what the user is actually trying to achieve before executing any logic.
+
+**The Orchestration Layer (The Brain):** This is the most vital part of the stack — the "Manager." It decides when to call the AI model, when to pull information from a database, and when to perform a web search. Frameworks like **LangChain** or **LlamaIndex** operate within this layer.
+
+**The Model Layer (Intelligence):** This is where the actual LLMs (GPT-4, Gemini, Llama 3) reside. These models act as a "Utility," much like electricity — you plug into them to power the intelligence of your app.
+
+### 1.2 Integration Methods: API vs. Self-Hosted
+
+| Method | Pros | Cons |
+|---|---|---|
+| **API-First (External)** | Easy setup, fast time-to-market | Higher long-term cost, data privacy concerns |
+| **Self-Hosted (Open Source)** | Full data privacy, cost-effective at scale | Higher technical complexity to set up |
+
+<CodePlayground
+  title="Orchestration Layer — LangChain Example"
+  language="typescript"
+  code={`import { ChatOpenAI } from "@langchain/openai";
+import { RetrievalQAChain } from "langchain/chains";
+import { vectorStore } from "./vectorStore";
+
+const model = new ChatOpenAI({ modelName: "gpt-4" });
+const retriever = vectorStore.asRetriever();
+
+const chain = RetrievalQAChain.fromLLM(model, retriever);
+
+const response = await chain.call({
+  query: "What is our refund policy?"
+});
+console.log(response.text);`}
+/>
+
+---
+
+## Topic 2: Vector Databases and RAG
+
+While LLMs possess vast general knowledge, they do not know your **private company data** or the **latest news**. To solve this knowledge gap, we use **RAG (Retrieval-Augmented Generation)**.
+
+### 2.1 What is RAG?
+
+RAG is essentially giving the AI an **"Open Book Exam."** When a user asks a question, the system follows a two-step process:
+
+1. **Retrieval:** The system searches your private database for the most relevant documents.
+2. **Generation:** The system hands those documents to the AI and says, *"Read this specific information first, and then answer the user's question."*
+
+> **Example:** If you build an HR Chatbot, the AI doesn't need to memorize every policy. For every query, it simply finds the relevant page of the manual and answers based on that text.
+
+### 2.2 The Role of Vector Databases
+
+AI does not read text like humans — it converts words into **Numbers (Vectors)**.
+
+- **Embeddings:** The process of converting text into numbers is called "Embedding." This allows the AI to understand mathematical relationships between words — it knows that "Dog" and "Puppy" are related, while "Dog" and "Table" are not.
+- **Vector DBs (Pinecone, Chroma, Weaviate):** Specialized databases that store these vectors. When a user asks a question, the Vector DB finds the most mathematically similar information in milliseconds.
+
+<CodePlayground
+  title="RAG Pipeline — Embed, Store, Retrieve"
+  language="typescript"
+  code={`import { OpenAIEmbeddings } from "@langchain/openai";
+import { Chroma } from "@langchain/community/vectorstores/chroma";
+
+// Step 1: Embed and store your documents
+const embeddings = new OpenAIEmbeddings();
+const vectorStore = await Chroma.fromDocuments(docs, embeddings, {
+  collectionName: "hr-policy"
+});
+
+// Step 2: Retrieve relevant context for a user query
+const results = await vectorStore.similaritySearch(
+  "What is the remote work policy?",
+  3 // top-3 most similar chunks
+);
+console.log(results.map(r => r.pageContent));`}
+/>
+
+---
+
+## Quiz: Test Your Understanding
+
+<Quiz
+  question="What is the primary purpose of RAG (Retrieval-Augmented Generation)?"
+  options={[
+    "To make the AI model run faster.",
+    "To allow the AI to access and reason over your private, up-to-date data without retraining.",
+    "To reduce the number of tokens an AI uses.",
+    "To replace Vector Databases with simpler SQL databases."
+  ]}
+  correctIndex={1}
+  explanation="RAG bridges the gap between an LLM's static training knowledge and your dynamic, private data. It retrieves relevant documents and feeds them as context, so the AI can answer accurately without expensive retraining."
+/>
